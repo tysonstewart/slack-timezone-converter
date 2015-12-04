@@ -18,7 +18,7 @@ class TimezoneAdjuster
 
 	# Normalize times
 	def normalize(text)
-	  text.gsub(/([0-9]{1,2})([0-9]{2})( ?([aA]|[pP])[mM])/, '\1:\2\3')
+		text.gsub(/([0-9]{1,2})[.:]?([0-9]{2})( ?([aA]|[pP])[mM])/, '\1:\2\3')
 	end
 
 	def has_time?(text)
@@ -61,7 +61,7 @@ class TimezoneAdjuster
 		# Identify time patterns
 		begin
 			Time.zone = users[data['user']][:tz]
-			text = normalize data['text']
+			text = normalize dataText
 			time = Time.zone.parse(text).utc
 			$log.debug "[#{Time.now}] Got time #{time}"
 
